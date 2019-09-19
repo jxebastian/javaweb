@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3-alpine' 
-            args '-v /root/.m2:/root/.m2' 
+            args '-v /home/ubuntu/.m2:/root/.m2' 
         }
     }
     stages {
@@ -10,6 +10,11 @@ pipeline {
             steps {
                 sh 'mvn clean package' 
             }
+        }
+        stage('deploy') {
+             steps {
+                sh 'cp **/*.war vigilant_mayer:/opt/tomcat/webapps'
+            }  
         }
     }
 }
