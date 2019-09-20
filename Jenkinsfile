@@ -12,9 +12,12 @@ pipeline {
             }
         }
         stage('deploy') {
-             steps {
-                sh 'cp **/*.war vigilant_mayer:/opt/tomcat/webapps'
-            }  
+             environmet {
+                TOMCAT_URL = 'c_tomcat'
+            }
+            steps {
+                sh 'curl -s --upload-file ${WORKSPACE}/target/*.war "http://${TOMCAT_URL}:8080/manager/text/deploy?path=/web&update=true"'
+            }
         }
     }
 }
