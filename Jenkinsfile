@@ -12,7 +12,7 @@ pipeline {
             }
         }
         stage('deploy') {
-             environmet {
+             environment {
                 TOMCAT_URL = 'c_tomcat'
             }
             steps {
